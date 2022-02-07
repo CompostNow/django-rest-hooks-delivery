@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-# vim: ft=python:sw=4:ts=4:sts=4:et:
 from django.conf import settings
 from django.db import models
 
@@ -14,10 +12,7 @@ class FailedHook(models.Model):
                                       db_index=True)
     target = models.URLField('original target URL', max_length=255,
                              editable=False, db_index=True)
-    event = models.CharField(max_length=64, db_index=True,
-                             choices=[(e, e) for e in
-                                      sorted(HOOK_EVENTS.keys())],
-                             editable=False)
+    event = models.CharField(max_length=64, db_index=True, editable=False)
     user = models.ForeignKey(AUTH_USER_MODEL, editable=False, on_delete=models.PROTECT)
     payload = models.TextField(editable=False)
     response_headers = models.TextField(editable=False, max_length=65535)
@@ -29,8 +24,15 @@ class FailedHook(models.Model):
 
     hook = models.ForeignKey('rest_hooks.Hook', editable=False, on_delete=models.PROTECT)
 
-    def __unicode__(self):
-        return u'%s [%d]' % (self.target, self.last_status)
+    def __str__(self):
+        return '{} [{}]'.format(self.target, self.last_status)
 
     class Meta:
         ordering = ('-last_retry',)
+    
+    def clean(self):
+        """ Validation for events. """
+        if self.event not in HOOK_EVENTS.keys():
+            raise ValidationError(
+                "Invalid hook event {evt}.".format(evt=self.event)
+            )

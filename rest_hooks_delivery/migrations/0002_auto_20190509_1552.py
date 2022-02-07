@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.db import migrations, models
 
 
@@ -19,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='failedhook',
             name='target',
-            field=models.URLField(db_index=True, editable=False, max_length=255, verbose_name=b'original target URL'),
+            field=models.URLField(db_index=True, editable=False, max_length=255, verbose_name='original target URL'),
         ),
         migrations.AlterUniqueTogether(
             name='failedhook',

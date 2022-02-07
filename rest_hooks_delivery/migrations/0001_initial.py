@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.db import models, migrations
 from django.conf import settings
 
@@ -18,15 +15,15 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('last_retry', models.DateTimeField(auto_now=True, db_index=True)),
-                ('target', models.URLField(verbose_name=b'Original target URL', max_length=255, editable=False, db_index=True)),
-                ('event', models.CharField(db_index=True, verbose_name=b'Event', max_length=64, editable=False, choices=[(b'customer.created', b'customer.created'), (b'customer.deleted', b'customer.deleted'), (b'customer.updated', b'customer.updated'), (b'invoice.created', b'invoice.created'), (b'invoice.deleted', b'invoice.deleted'), (b'invoice.updated', b'invoice.updated'), (b'plan.created', b'plan.created'), (b'plan.deleted', b'plan.deleted'), (b'plan.updated', b'plan.updated'), (b'proforma.created', b'proforma.created'), (b'proforma.deleted', b'proforma.deleted'), (b'proforma.updated', b'proforma.updated'), (b'provider.created', b'provider.created'), (b'provider.deleted', b'provider.deleted'), (b'provider.updated', b'provider.updated'), (b'subscription.created', b'subscription.created'), (b'subscription.deleted', b'subscription.deleted'), (b'subscription.updated', b'subscription.updated')])),
+                ('target', models.URLField(verbose_name='Original target URL', max_length=255, editable=False, db_index=True)),
+                ('event', models.CharField(db_index=True, verbose_name='Event', max_length=64, editable=False, choices=[('customer.created', 'customer.created'), ('customer.deleted', 'customer.deleted'), ('customer.updated', 'customer.updated'), ('invoice.created', 'invoice.created'), ('invoice.deleted', 'invoice.deleted'), ('invoice.updated', 'invoice.updated'), ('plan.created', 'plan.created'), ('plan.deleted', 'plan.deleted'), ('plan.updated', 'plan.updated'), ('proforma.created', 'proforma.created'), ('proforma.deleted', 'proforma.deleted'), ('proforma.updated', 'proforma.updated'), ('provider.created', 'provider.created'), ('provider.deleted', 'provider.deleted'), ('provider.updated', 'provider.updated'), ('subscription.created', 'subscription.created'), ('subscription.deleted', 'subscription.deleted'), ('subscription.updated', 'subscription.updated')])),
                 ('payload', models.TextField(editable=False)),
                 ('response_headers', models.TextField(max_length=65535, editable=False)),
                 ('response_body', models.TextField(max_length=65535, editable=False)),
                 ('last_status', models.PositiveSmallIntegerField(editable=False, db_index=True)),
                 ('retries', models.PositiveIntegerField(default=1, editable=False, db_index=True)),
-                ('hook', models.ForeignKey(editable=False, to='rest_hooks.Hook')),
-                ('user', models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL)),
+                ('hook', models.ForeignKey(editable=False, to='rest_hooks.Hook', on_delete=models.PROTECT)),
+                ('user', models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL, on_delete=models.PROTECT)),
             ],
             options={
                 'ordering': ('-last_retry',),
