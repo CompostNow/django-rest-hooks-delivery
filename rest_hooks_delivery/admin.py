@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib import admin, messages
 from django.db.models import F
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from rest_hooks.utils import get_module
 
 from rest_hooks_delivery.models import FailedHook
