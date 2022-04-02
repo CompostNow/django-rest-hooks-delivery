@@ -145,7 +145,7 @@ class Client(object):
                             'status_code': r.status_code,
                             'url': r.url,
                             'reason': r.reason,
-                            'content': r.content,
+                            'content': r.content.decode(r.encoding),
                         }
 
                     mailer = get_module(settings.HOOK_EXCEPTION_MAILER)
