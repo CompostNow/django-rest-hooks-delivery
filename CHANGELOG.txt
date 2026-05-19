@@ -14,3 +14,7 @@ Enhancements
 
 * Python3+ and Django2+ support
 * manually handle hook validation
+
+=== 0.3.2 ===
+
+* Django6+ support

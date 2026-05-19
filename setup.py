@@ -7,9 +7,8 @@ setup(
     description=('Various webhook deliverers for django-rest-hooks and '
                  'django-rest-hooks-ng.'),
     version=version,
-    author='PressLabs',
-    author_email='ping@presslabs.com',
-    url='http://github.com/PressLabs/django-rest-hooks-delivery',
+    author='CompostNow',
+    url='https://github.com/CompostNow/django-rest-hooks-delivery',
     install_requires=['Django>=2.2', 'requests', 'django-jsonfield'],
     packages=['rest_hooks_delivery'],
     include_package_data=True,

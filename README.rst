@@ -17,7 +17,7 @@ To get the latest commit from GitHub
 
 .. code-block:: bash
 
-    pip install -e git+git://github.com/CompostNow/django-rest-hooks-delivery.git#egg=django-rest-hooks-delivery
+    pip install git+https://github.com/CompostNow/django-rest-hooks-delivery.git#egg=django-rest-hooks-delivery
 
 Add ``rest_hooks_delivery`` to your ``INSTALLED_APPS``
 
