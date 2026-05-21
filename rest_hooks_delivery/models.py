@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 
 HOOK_EVENTS = getattr(settings, 'HOOK_EVENTS', None)
@@ -25,7 +26,7 @@ class FailedHook(models.Model):
     hook = models.ForeignKey('rest_hooks.Hook', editable=False, on_delete=models.PROTECT)
 
     def __str__(self):
-        return '{} [{}]'.format(self.target, self.last_status)
+        return f'[{self.last_status}] {self.target}'
 
     class Meta:
         ordering = ('-last_retry',)

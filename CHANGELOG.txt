@@ -18,3 +18,4 @@ Enhancements
 === 0.3.2 ===
 
 * Django6+ support
+* Store payload and response in JSON format

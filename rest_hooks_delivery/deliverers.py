@@ -81,9 +81,10 @@ class Client(object):
                             # so that the issue can be investigated
                             r.raise_for_status()
 
-                        failed_hook.response_headers = {k: r.headers[k] for k in
-                                                        r.headers.keys()}
-                        failed_hook.response_body = r.content
+                        failed_hookresponse_headers = json.dumps(
+                            {k: r.headers[k] for k in r.headers.keys()}
+                        )
+                        failed_hook.response_body = r.text
                         failed_hook.last_status = r.status_code
                         failed_hook.retries = F('retries') + 1
                         failed_hook.save()
@@ -92,9 +93,10 @@ class Client(object):
                         FailedHook.objects.create(
                             target=r.request.url,
                             payload=payload,
-                            response_headers={k: r.headers[k]
-                                              for k in r.headers.keys()},
-                            response_body=r.content,
+                            response_headers=json.dumps(
+                                {k: r.headers[k] for k in r.headers.keys()}
+                            ),
+                            response_body=r.text,
                             last_status=r.status_code,
                             event=hook_event,
                             user_id=hook_user_id,
@@ -114,9 +116,10 @@ class Client(object):
                 # record failed hook for retrying
                 if failed_hook:
                     send_mail = failed_hook.retries == 5
-                    failed_hook.response_headers = {k: r.headers[k] for k in
-                                                    r.headers.keys()}
-                    failed_hook.response_body = r.content
+                    failed_hook.response_headers = json.dumps(
+                        {k: r.headers[k] for k in r.headers.keys()}
+                    )
+                    failed_hook.response_body = r.text
                     failed_hook.last_status = r.status_code
                     failed_hook.retries = F('retries') + 1
                     failed_hook.save()
@@ -126,9 +129,10 @@ class Client(object):
                     FailedHook.objects.create(
                         target=r.request.url,
                         payload=payload,
-                        response_headers={k: r.headers[k]
-                                          for k in r.headers.keys()},
-                        response_body=r.content,    # TODO: Test what happens when there is no response, e.g. with SSLError
+                        response_headers=json.dumps(
+                            {k: r.headers[k] for k in r.headers.keys()}
+                        ),
+                        response_body=r.text,    # TODO: Test what happens when there is no response, e.g. with SSLError
                         last_status=r.status_code,
                         event=hook_event,
                         user_id=hook_user_id,
